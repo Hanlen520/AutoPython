@@ -1,11 +1,18 @@
 #!/usr/bin/python
 # -*- coding=utf-8 -*-
 # 查找图集.png文件对应的.xml 或 .html文件并解析，根据解析到的信息切割图集中的icon
+
+# pip 安装模块的问题
+# 如 pip install Pillow  默认安装在 python2.7的目录下 python3就无法使用
+# 解决：
+# 运行 python3 -m pip install Pillow
+
 import os
+import json
 from xml.etree import ElementTree as ET
 from PIL import Image
 from html.parser import HTMLParser
-import json
+
 
 class WPHTMLParser(HTMLParser):
 	"""docstring for WPHTMLParser"""
@@ -63,11 +70,11 @@ def search_file():
 
 
 def xml_parser(p, f, file):
-	print('目标路径：%s' % (os.listdir(p)))
+	print('目标存储路径：%s' % (os.listdir(p)))
 	if len(os.listdir(p)) > 1:
 		print('%s 目录下已经存在.png文件，请检查' % p)
 	else:
-		print('正在裁剪：%s.png ...' % f)
+		print('正在裁剪：%s ...' % f)
 		with Image.open(f) as im:
 			tree = ET.parse(file)
 			root = tree.getroot()
@@ -78,11 +85,11 @@ def xml_parser(p, f, file):
 
 
 def html_parser(p, f, file):
-	print('目标路径：%s' % (os.listdir(p)))
+	print('目标存储路径：%s' % (os.listdir(p)))
 	if len(os.listdir(p)) > 1:
 		print('%s 目录下已经存在.png文件，请检查' % p)
 	else:
-		print('正在裁剪：%s.png ...' % f)
+		print('正在裁剪：%s ...' % f)
 		with Image.open(f) as im:
 			with open(file) as data:
 				html_p.feed(data.read())
@@ -95,11 +102,11 @@ def html_parser(p, f, file):
 	pass
 
 def json_parser(p, f, file):
-	print('目标路径：%s' % (os.listdir(p)))
+	print('目标存储路径：%s' % (os.listdir(p)))
 	if len(os.listdir(p)) > 1:
 		print('%s 目录下已经存在.png文件，请检查' % p)
 	else:
-		print('正在裁剪：%s.png ...' % f)
+		print('正在裁剪：%s ...' % f)
 		with Image.open(f) as im:
 			with open(file, 'r') as f_json:
 				d = json.loads(f_json.read())
