@@ -15,7 +15,7 @@ from html.parser import HTMLParser
 
 
 class WPHTMLParser(HTMLParser):
-	"""docstring for WPHTMLParser"""
+    """docstring for WPHTMLParser"""
 	def __init__(self):
 		HTMLParser.__init__(self)
 		self.rects = []
